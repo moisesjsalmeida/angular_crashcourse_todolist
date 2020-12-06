@@ -1,0 +1,35 @@
+<div [ngClass]="setClasses()">
+    <p>
+        <input
+            type="checkbox"
+            (change)="onToggle(todo)"
+            [checked]="todo.completed"
+        />
+
+        <span *ngIf="!editMode" class="todoItem">
+            <span (click)="editMode = true" class="todoText">
+                {{ todo.title }}
+                <span class="hidden">Click to edit</span>
+            </span>
+        </span>
+
+        <span *ngIf="editMode">
+            <form class="editForm" (ngSubmit)="onEdit(todo)">
+                <input
+                    type="text"
+                    name="title"
+                    [(ngModel)]="todo.title"
+                    [value]="todo.title"
+                />
+                <input
+                    type="submit"
+                    value="Save"
+                    class="btn"
+                    (click)="editMode = false"
+                />
+            </form>
+        </span>
+
+        <button (click)="onDelete(todo)" class="del">x</button>
+    </p>
+</div>
